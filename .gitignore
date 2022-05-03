@@ -1,0 +1,26 @@
+HELP.md
+logs/
+venv/
+build/
+dist/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### ETC ###
+properties/default.yml
+.security.yml
