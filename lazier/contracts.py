@@ -8,7 +8,7 @@ from typing import Union
 from .foundations import Dictionary
 
 
-class Runnable(metaclass=ABCMeta):
+class Runnable:  # (metaclass=ABCMeta):
     def run(self, *args, **kwargs):
         pass
 
