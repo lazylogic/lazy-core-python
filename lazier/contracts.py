@@ -3,6 +3,7 @@ Interfaces or abstract classes
 """
 import importlib
 from abc import ABCMeta, abstractmethod
+from multiprocessing import Queue
 from typing import Union
 
 from .foundations import Dictionary
@@ -32,6 +33,13 @@ class Observable:
 class Observer(metaclass=ABCMeta):
     @abstractmethod
     def update(self, obj: object, *args, **kwargs):
+        pass
+
+
+class Queueable:
+    queue: Queue
+
+    def mediate(self, obj):
         pass
 
 
