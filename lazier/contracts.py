@@ -8,7 +8,7 @@ from typing import Union
 from .foundations import Dictionary
 
 
-class Runnable:  # (metaclass=ABCMeta):
+class Runnable:
     def run(self, *args, **kwargs):
         pass
 
@@ -19,7 +19,7 @@ class Runnable:  # (metaclass=ABCMeta):
         pass
 
 
-class Observable(metaclass=ABCMeta):
+class Observable:
     _obs: set
 
     def add_observer(self, obj: object):
@@ -35,7 +35,7 @@ class Observer(metaclass=ABCMeta):
         pass
 
 
-class ModuleFactory(metaclass=ABCMeta):
+class ModuleFactory:
     __ROOT__: str = 'engine'
     __PACKAGE__: str = ''
     __MODULE__: str = ''
