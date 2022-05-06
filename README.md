@@ -6,8 +6,8 @@
 pip install git+https://github.com/lazylogic/lazy-core-python.git
 ```
 
-* [Contract](docs/contract.md)
-* [Decoration](docs/decoration.md)
-* [Foundation](docs/foundation.md)
+* [Contracts](docs/contracts.md)
+* [Decorations](docs/decorations.md)
+* [Foundations](docs/foundations.md)
 * [Properties](docs/properties.md)
 * [Utils](docs/utils.md)

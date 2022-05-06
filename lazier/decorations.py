@@ -3,7 +3,7 @@ Decorations
 """
 import logging
 
-from .foundation import Dictionary
+from .foundations import Dictionary
 
 
 def Singleton(cls):

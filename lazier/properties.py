@@ -1,7 +1,7 @@
 import re
 from re import Pattern
 
-from .foundation import Dictionary, Array
+from .foundations import Dictionary, Array
 from .utils import load_properties, yml_path
 
 
