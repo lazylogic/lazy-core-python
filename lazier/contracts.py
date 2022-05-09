@@ -44,7 +44,7 @@ class Queueable:
 
 
 class ModuleFactory:
-    __ROOT__: str = 'project'
+    __ROOT__: str = ''
     __PACKAGE__: str = ''
     __MODULE__: str = ''
     __DEFAULT__: str = 'Default'
