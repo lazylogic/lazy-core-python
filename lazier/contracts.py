@@ -59,7 +59,7 @@ class ModuleFactory:
 
     @classmethod
     def _create(cls, name: str, props: dict = {}, *args, **kwargs):
-        return cls.load_class(name)(props, *args, **kwargs)
+        return cls.load_class(name)(props=props, *args, **kwargs)
 
     @classmethod
     def load_class(cls, name: str):
