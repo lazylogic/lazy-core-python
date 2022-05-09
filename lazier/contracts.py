@@ -2,7 +2,6 @@
 Interfaces or abstract classes
 """
 import importlib
-import os
 from abc import ABCMeta, abstractmethod
 from multiprocessing import Queue
 from typing import Union
@@ -46,7 +45,7 @@ class Queueable:
 
 class ModuleFactory:
     __ROOT__: str = ''
-    __PACKAGE__: str = os.path.basename(os.path.dirname(os.path.abspath(__file__)))
+    __PACKAGE__: str = ''
     __MODULE__: str = ''
     __DEFAULT__: str = 'Default'
 
