@@ -78,4 +78,7 @@ class ModuleFactory:
             module = f'{upper_first(name)}{package.capitalize()}'
             name = module
 
-        return getattr(importlib.import_module(f"{cls.__ROOT__}{f'.{package}' if package else ''}.{module}"), name)
+        path = [cls.__ROOT__] if cls.__ROOT__ else []
+        package and path.append(package)
+        module and path.append(module)
+        return getattr(importlib.import_module('.'.join(path)), name)
