@@ -10,10 +10,10 @@ from .foundations import Dictionary
 
 
 class Runnable:
-    def run(self, *args, **kwargs):
-        pass
-
     def start(self, *args, **kwargs):
+        self.run(*args, **kwargs)
+
+    def run(self, *args, **kwargs):
         pass
 
     def stop(self, *args, **kwargs):
