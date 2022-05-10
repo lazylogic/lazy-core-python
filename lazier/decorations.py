@@ -31,7 +31,6 @@ def Logging(multiprocess: bool = False):
         if multiprocess:
             import multiprocessing
             log = multiprocessing.get_logger()
-            log.name = name
             log.propagate = True
         else:
             log = logging.getLogger(name)
@@ -41,8 +40,14 @@ def Logging(multiprocess: bool = False):
         cls_init = cls.__init__
 
         def __init__(self, *args, **kwargs):
-            # self.log = getLogger(self.__class__.__name__, multiprocess)
-            self.log = logging.getLogger(self.__class__.__name__)
+            # self.log = getLogger(multiprocess)
+            # self.log = logging.getLogger(self.__class__.__name__)
+            if multiprocess:
+                import multiprocessing
+                self.log = multiprocessing.get_logger()
+                self.log.propagate = True
+            else:
+                self.log = logging.getLogger(self.__class__.__name__)
             cls_init(self, *args, **kwargs)
 
         cls.__init__ = __init__
