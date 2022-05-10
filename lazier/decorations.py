@@ -27,12 +27,22 @@ def Singleton(cls):
 
 
 def Logging(multiprocess: bool = False):
+    def getLogger(name: str, multiprocess: bool):
+        if multiprocess:
+            import multiprocessing
+            log = multiprocessing.get_logger()
+            log.name = name
+            log.propagate = True
+        else:
+            log = logging.getLogger(name)
+        return log
+
     def wrapper(cls):
         cls_init = cls.__init__
 
         def __init__(self, *args, **kwargs):
-            # self.log = get_logger(self.__class__.__name__, multiprocess)
-            self.log = logging.getLogger(self.__class__.__name__)
+            self.log = getLogger(self.__class__.__name__, multiprocess)
+            # self.log = logging.getLogger(self.__class__.__name__)
             cls_init(self, *args, **kwargs)
 
         cls.__init__ = __init__
