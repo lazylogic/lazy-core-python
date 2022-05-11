@@ -6,7 +6,7 @@ from .utils import load_properties, yml_path
 
 
 def properties(*props: dict, include_path: str = None, replace: bool = True) -> Dictionary:
-    return Properties().parse(*props, include_path=include_path, replace=replace)
+    return Properties().parse([load_properties(prop) for prop in props], include_path=include_path, replace=replace)
 
 
 class Properties:
