@@ -79,6 +79,12 @@ class Dictionary(dict):
     def extract(self, keys: list):
         return Dictionary(Dictionary.extract_item(self, keys))
 
+    def dict(self):
+        try:
+            return dict(self)
+        except:
+            return {}
+
     @staticmethod
     def has_key(dic: dict, path: str) -> bool:
         paths = path.split('.') if isinstance(path, str) else path
