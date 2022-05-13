@@ -50,6 +50,9 @@ class Dictionary(dict):
     # def __getstate__(self):
     #     return self.__dict__
 
+    def __dict__(self):
+        return self.dict()
+
     def get(self, key, default=None):
         return Dictionary.get_item(self, key, default)
 
