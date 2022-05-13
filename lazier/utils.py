@@ -100,7 +100,7 @@ def load_properties(ctx: Union[str, dict]) -> dict:
             return load_json(ctx)
 
         if not ext or ('YML' == ext[-3:].upper() or 'YAML' == ext[-4:].upper()):
-            return load_yml(path + ext)
+            return load_yml(path + (ext or '.yml'))
     except Exception as e:
         logging.exception(e)
         return {}
