@@ -19,6 +19,12 @@ class Array(list):
     def distinct(self):
         return Array.distinct_items(self)
 
+    def list(self):
+        try:
+            return list(self)
+        except:
+            return []
+
     @staticmethod
     def distinct_items(data: list):
         distinct = []
