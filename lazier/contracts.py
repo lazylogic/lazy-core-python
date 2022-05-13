@@ -68,15 +68,15 @@ class ModuleFactory:
         if len(names) == 3:
             package = names[0]
             module = names[1]
-            name = f'{upper_first(names[2])}{package.capitalize()}'
+            name = f'{upper_first(names[2])}{module.capitalize()}'
         elif len(names) == 2:
             package = cls.__PACKAGE__ or ''
             module = names[0]
-            name = f'{upper_first(names[1])}{package.capitalize()}'
+            name = f'{upper_first(names[1])}{module.capitalize()}'
         else:
             package = cls.__PACKAGE__ or ''
-            module = f'{upper_first(name)}{package.capitalize()}'
-            name = module
+            module = cls.__MODULE__ or ''
+            name = f'{upper_first(name)}{module.capitalize()}'
 
         path = [cls.__ROOT__] if cls.__ROOT__ else []
         package and path.append(package)
