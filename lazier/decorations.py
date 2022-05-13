@@ -61,7 +61,7 @@ def HasProperties(cls):
 
     def __init__(self, props: dict = {}, *args, **kwargs):
         self.props = Dictionary(getattr(self, 'preset', {})).merge(props)
-        self.debug = self.p.get('debug', False)
+        self.debug = self.props.get('debug', False)
         cls_init(self, *args, **kwargs)
 
     cls.__init__ = __init__
