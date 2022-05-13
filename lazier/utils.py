@@ -2,6 +2,7 @@ import importlib
 import json
 import logging
 import os
+from typing import Union
 
 import yaml
 
@@ -83,7 +84,7 @@ def load_yml(ctx: str) -> dict:
         return {}
 
 
-def load_properties(ctx: str) -> dict:
+def load_properties(ctx: Union[str, dict]) -> dict:
     """
     Read json or yml file or pars json or yml string.
 

@@ -1,21 +1,27 @@
 import re
 from re import Pattern
+from typing import Union
 
-from .foundations import Dictionary, Array
-from .utils import load_properties, yml_path
+from lazier.foundations import Dictionary, Array
+from lazier.utils import load_properties, yml_path, pp
 
 
 def properties(*props: dict, include_path: str = None, replace: bool = True) -> Dictionary:
-    return Properties().parse([load_properties(prop) for prop in props], include_path=include_path, replace=replace)
+    return Properties().parse(*props, include_path=include_path, replace=replace)
 
 
 class Properties:
     REPLACE_PATTERN: Pattern = re.compile(r'\${(.+)}')
 
-    props: dict
+    p: dict
     include_path: str
 
+    @classmethod
+    def load(cls, ctx: Union[str, dict]) -> dict:
+        return load_properties(ctx)
+
     def parse(self, *props: dict, include_path: str = None, replace: bool = True) -> Dictionary:
+        props = [self.load(prop) for prop in props]
         self.include_path = include_path
         self._merge(*props)
         self._parse(self.props)
@@ -76,3 +82,9 @@ class Properties:
                     self._replace(prop)
         finally:
             return props
+
+
+# for test
+if __name__ == "__main__":
+    p = properties({'a': 'A'}, {'b': 'B'}, '/Users/razy/0Z.Razy/lazy-core-python/test/p.yml')
+    pp(p)
