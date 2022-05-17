@@ -155,7 +155,7 @@ class Dictionary(dict):
 
     @staticmethod
     def join(dic: dict, separator: str = '&', delimiter: str = '=', prefix: str = '', suffix: str = ''):
-        return f"{prefix}{separator.join(delimiter.join((key, val)) for (key, val) in (dic or {}).items())}{suffix}"
+        return f"{prefix}{separator.join(delimiter.join((key, val)) for (key, val) in dic.items())}{suffix}" if dic and isinstance(dic, dict) else ''
 
 
 class XEnum(Enum):
