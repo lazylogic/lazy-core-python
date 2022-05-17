@@ -88,6 +88,9 @@ class Dictionary(dict):
     def extract(self, keys: list):
         return Dictionary(Dictionary.extract_item(self, keys))
 
+    def join(self, a: str = '&'):
+        return
+
     def dict(self):
         try:
             return dict(self)
@@ -149,6 +152,10 @@ class Dictionary(dict):
             return Dictionary({str(i.get(key)): i for i in data} if isinstance(data, list) else {})
         except Exception as e:
             return Dictionary()
+
+    @staticmethod
+    def join(dic: dict, separator: str = '&', delimiter: str = '=', prefix: str = '', suffix: str = ''):
+        return f"{prefix}{separator.join(delimiter.join((key, val)) for (key, val) in (dic or {}).items())}{suffix}"
 
 
 class XEnum(Enum):
