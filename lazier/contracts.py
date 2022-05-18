@@ -37,7 +37,7 @@ class Observer:
 class Queueable:
     queue: Queue
 
-    def __init__(self, queue: Queue = None):
+    def __init__(self, queue: Queue = None, *args, **kwargs):
         self.queue = queue
 
     def mediate(self, obj):
