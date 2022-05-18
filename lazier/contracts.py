@@ -2,7 +2,6 @@
 Interfaces or abstract classes
 """
 import importlib
-from abc import ABCMeta, abstractmethod
 from multiprocessing import Queue
 from typing import Union
 
@@ -30,21 +29,19 @@ class Observable:
         [ob.update(self, *args, **kwargs) for ob in self._obs]
 
 
-class Observer(metaclass=ABCMeta):
-    @abstractmethod
+class Observer:
     def update(self, obj: object, *args, **kwargs):
-        pass
+        raise NotImplementedError
 
 
-class Queueable(metaclass=ABCMeta):
+class Queueable:
     queue: Queue
 
     def __init__(self, queue: Queue = None):
         self.queue = queue
 
-    @abstractmethod
     def mediate(self, obj):
-        pass
+        raise NotImplementedError
 
 
 class ModuleFactory:
