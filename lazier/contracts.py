@@ -36,9 +36,13 @@ class Observer(metaclass=ABCMeta):
         pass
 
 
-class Queueable:
+class Queueable(metaclass=ABCMeta):
     queue: Queue
 
+    def __init__(self, queue: Queue = None):
+        self.queue = queue
+
+    @abstractmethod
     def mediate(self, obj):
         pass
 
