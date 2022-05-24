@@ -85,8 +85,8 @@ class Dictionary(dict):
             Dictionary.replace_item(self, d if isinstance(d, dict) else {})
         return self
 
-    def extract(self, keys: list):
-        return Dictionary(Dictionary.extract_item(self, keys))
+    def extract(self, *keys: str):
+        return Dictionary(Dictionary.extract_item(self, *keys))
 
     def join(self, a: str = '&'):
         return
@@ -143,8 +143,8 @@ class Dictionary(dict):
         return Dictionary(dic)
 
     @staticmethod
-    def extract_item(dic: dict, keys: list) -> dict:
-        return Dictionary({key: dic.get(key) for key in keys} if isinstance(dic, dict) and isinstance(keys, list) else {})
+    def extract_item(dic: dict, *keys: str) -> dict:
+        return Dictionary({key: dic.get(key) for key in keys} if isinstance(dic, dict) and isinstance(keys, (list, tuple)) else {})
 
     @staticmethod
     def from_list(data: list, key: str) -> dict:
@@ -166,3 +166,4 @@ class XEnum(Enum):
 if __name__ == "__main__":
     d = Dictionary({'@a': 1, 'b': 2, 'c': {'d': {'e': ['a', 'b', 'c']}}})
     print(d.has('c.d.e.a'))
+    print(d.extract('a', 'b', 'c'))
