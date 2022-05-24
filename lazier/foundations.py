@@ -144,7 +144,7 @@ class Dictionary(dict):
 
     @staticmethod
     def extract_item(dic: dict, keys: list) -> dict:
-        return Dictionary({key: dic[key] for key in keys} if isinstance(dic, dict) and isinstance(keys, list) else dic)
+        return Dictionary({key: dic.get(key) for key in keys} if isinstance(dic, dict) and isinstance(keys, list) else {})
 
     @staticmethod
     def from_list(data: list, key: str) -> dict:
