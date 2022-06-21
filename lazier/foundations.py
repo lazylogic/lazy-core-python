@@ -164,6 +164,7 @@ class XEnum(Enum):
 
 # for test
 if __name__ == "__main__":
-    d = Dictionary({'@a': 1, 'b': 2, 'c': {'d': {'e': ['a', 'b', 'c']}}})
-    print(d.has('c.d.e.a'))
-    print(d.extract('a', 'b', 'c'))
+    # d = Dictionary({'@a': 1, 'b': 2, 'c': {'d': {'e': ['a', 'b', 'c']}}})
+    # print(d.has('c.d.e.a'))
+    # print(d.extract('a', 'b', 'c'))
+    pass
