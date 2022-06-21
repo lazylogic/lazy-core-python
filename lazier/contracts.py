@@ -45,7 +45,6 @@ class Queueable:
 
 
 class ModuleFactory:
-    __ROOT__: str = ''
     __PACKAGE__: str = ''
     __MODULE__: str = ''
     __DEFAULT__: str = 'Default'
@@ -63,25 +62,18 @@ class ModuleFactory:
         return cls.load_class(name)(props=props, *args, **kwargs)
 
     @classmethod
-    def load_class(cls, name: str):
+    def load_class(cls, path: str):
         from .utils import upper_first
-        names = name.split('.')
-        if len(names) == 3:
-            package = names[0]
-            module = names[1]
-            name = names[2]
-        elif len(names) == 2:
-            package = cls.__PACKAGE__ or ''
-            module = names[0]
-            name = names[1]
+        package = cls.__PACKAGE__.split('.') if cls.__PACKAGE__ else []
+        if '.' in path:
+            paths = path.split('.')
+            name = paths.pop()
+            module = paths.pop()
+            package.extend(paths)
         else:
-            package = cls.__PACKAGE__ or ''
-            module = cls.__MODULE__ or ''
-
-        path = [cls.__ROOT__] if cls.__ROOT__ else []
-        package and path.append(package)
-        module and path.append(module)
-        return getattr(importlib.import_module('.'.join(path)), f'{upper_first(name)}{module.capitalize()}')
+            name = path
+            module = cls.__MODULE__
+        return getattr(importlib.import_module('.'.join(package)), f'{upper_first(name)}{module.capitalize()}')
 
 
 # for test
