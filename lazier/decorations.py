@@ -13,13 +13,13 @@ def Singleton(cls):
         def __new__(cls, *args, **kwargs):
             if Wrapper._instance is None:
                 Wrapper._instance = super(Wrapper, cls).__new__(cls, *args, **kwargs)
-                Wrapper._instance._sealed = False
+                Wrapper._instance._init = False
             return Wrapper._instance
 
         def __init__(self, *args, **kwargs):
-            if not self._sealed:
+            if not self._init:
                 super(Wrapper, self).__init__(*args, **kwargs)
-                self._sealed = True
+                self._init = True
 
     Wrapper.__name__ = cls.__name__
     return Wrapper
