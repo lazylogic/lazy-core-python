@@ -69,20 +69,19 @@ class ModuleFactory:
         if len(names) == 3:
             package = names[0]
             module = names[1]
-            name = f'{upper_first(names[2])}{package.capitalize()}'
+            name = names[2]
         elif len(names) == 2:
             package = cls.__PACKAGE__ or ''
             module = names[0]
-            name = f'{upper_first(names[1])}{package.capitalize()}'
+            name = names[1]
         else:
             package = cls.__PACKAGE__ or ''
-            module = f'{upper_first(name)}{package.capitalize()}'
-            name = module
+            module = cls.__MODULE__ or ''
 
         path = [cls.__ROOT__] if cls.__ROOT__ else []
         package and path.append(package)
         module and path.append(module)
-        return getattr(importlib.import_module('.'.join(path)), name)
+        return getattr(importlib.import_module('.'.join(path)), f'{upper_first(name)}{module.capitalize()}')
 
 
 # for test
