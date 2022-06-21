@@ -3,27 +3,26 @@ Decorations
 """
 import logging
 
-from .foundations import Dictionary
+from lazier import Dictionary
 
 
 def Singleton(cls):
-    cls_init = cls.__init__
+    class Wrapper(cls):
+        _instance = None
 
-    def __new__(cls: object, *args, **kwargs):
-        if not (hasattr(cls, '_instance') and isinstance(cls._instance, cls)):
-            cls._instance = object.__new__(cls)
-            cls._is_init = False
-        return cls._instance
+        def __new__(cls, *args, **kwargs):
+            if Wrapper._instance is None:
+                Wrapper._instance = super(Wrapper, cls).__new__(cls, *args, **kwargs)
+                Wrapper._instance._sealed = False
+            return Wrapper._instance
 
-    def __init__(self, *args, **kwargs):
-        cls = type(self)
-        if not cls._is_init:
-            cls_init(self, *args, **kwargs)
-            cls._is_init = True
+        def __init__(self, *args, **kwargs):
+            if not self._sealed:
+                super(Wrapper, self).__init__(*args, **kwargs)
+                self._sealed = True
 
-    cls.__new__ = __new__
-    cls.__init__ = __init__
-    return cls
+    Wrapper.__name__ = cls.__name__
+    return Wrapper
 
 
 def Logging(multiprocess: bool = False):
