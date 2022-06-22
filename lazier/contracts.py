@@ -76,7 +76,7 @@ class ModuleFactory:
 
         name = module = f"{upper_first(name)}{module.capitalize()}"
 
-        return getattr(importlib.import_module(module, '.'.join(packages)), name)
+        return getattr(importlib.import_module('.'.join(packages)), name)
 
 
 # for test
