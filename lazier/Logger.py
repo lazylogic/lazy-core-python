@@ -7,7 +7,7 @@ from lazier.properties import properties
 from lazier.utils import load_properties
 
 
-class Logging:
+class Logger:
     @classmethod
     def configuration(cls, conf: Union[str, dict], level: Union[int, str] = logging.DEBUG, filepath: str = 'service'):
         try:
