@@ -68,11 +68,11 @@ class ModuleFactory:
         if '.' in class_path:
             paths = class_path.split('.')
             name = paths.pop()  # class name
-            module = paths.pop()  # file name
+            module = paths.pop()  # group name
             packages.extend(paths)  # path
         else:
             name = class_path
-            module = packages.pop() if len(packages) > 1 else cls.__MODULE__ or cls.__PACKAGE__
+            module = packages.pop() if not cls.__MODULE__ and len(packages) > 1 else cls.__MODULE__ or cls.__PACKAGE__
 
         name = f"{upper_first(name)}{module.capitalize()}"
         packages.append(name)
