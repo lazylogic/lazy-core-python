@@ -5,7 +5,7 @@ import importlib
 from multiprocessing import Queue, Manager
 from typing import Union
 
-from .foundations import Dictionary
+from lazier import Dictionary
 
 
 class Runnable:
@@ -62,21 +62,29 @@ class ModuleFactory:
         return cls.load_class(name)(props=props, *args, **kwargs)
 
     @classmethod
-    def load_class(cls, path: str):
-        from .utils import upper_first
-        package = cls.__PACKAGE__.split('.') if cls.__PACKAGE__ else []
-        if '.' in path:
-            paths = path.split('.')
+    def load_class(cls, class_path: str):
+        from lazier.utils import upper_first
+        packages = (cls.__PACKAGE__ or '').split('.')
+        if '.' in class_path:
+            paths = class_path.split('.')
             name = paths.pop()
             module = paths.pop()
-            package.extend(paths)
+            packages.extend(paths)
         else:
-            name = path
+            name = class_path
             module = cls.__MODULE__
-        return getattr(importlib.import_module('.'.join(package)), f'{upper_first(name)}{module.capitalize()}')
+
+        name = f"{upper_first(name)}{(packages[-1] or '').capitalize()}"
+        module = module or name
+
+        return getattr(importlib.import_module(module, '.'.join(packages)), name)
 
 
 # for test
 if __name__ == "__main__":
-    class AFactory(ModuleFactory):
-        pass
+    class AF(ModuleFactory):
+        __PACKAGE__ = 'abc.bbc'
+        __MODULE__ = ''
+
+
+    AF.create('my')
