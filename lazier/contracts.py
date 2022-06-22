@@ -67,15 +67,14 @@ class ModuleFactory:
         packages = (cls.__PACKAGE__ or '').split('.')
         if '.' in class_path:
             paths = class_path.split('.')
-            name = paths.pop()
-            module = paths.pop()
-            packages.extend(paths)
+            name = paths.pop()  # class name
+            module = paths.pop()  # file name
+            packages.extend(paths)  # path
         else:
             name = class_path
-            module = cls.__MODULE__
+            module = packages.pop() if len(packages) > 1 else cls.__MODULE__
 
-        name = f"{upper_first(name)}{(packages[-1] or '').capitalize()}"
-        module = module or name
+        name = module = f"{upper_first(name)}{module.capitalize()}"
 
         return getattr(importlib.import_module(module, '.'.join(packages)), name)
 
