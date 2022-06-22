@@ -7,22 +7,39 @@ from lazier import Dictionary
 
 
 def Singleton(cls):
-    class Wrapper(cls):
-        _instance = None
+    # class Wrapper(cls):
+    #     _instance = None
+    #
+    #     def __new__(cls, *args, **kwargs):
+    #         if Wrapper._instance is None:
+    #             Wrapper._instance = super(Wrapper, cls).__new__(cls, *args, **kwargs)
+    #             Wrapper._instance._init = False
+    #         return Wrapper._instance
+    #
+    #     def __init__(self, *args, **kwargs):
+    #         if not self._init:
+    #             super(Wrapper, self).__init__(*args, **kwargs)
+    #             self._init = True
+    #
+    # Wrapper.__name__ = cls.__name__
+    # return Wrapper
+    cls_init = cls.__init__
 
-        def __new__(cls, *args, **kwargs):
-            if Wrapper._instance is None:
-                Wrapper._instance = super(Wrapper, cls).__new__(cls, *args, **kwargs)
-                Wrapper._instance._init = False
-            return Wrapper._instance
+    def __new__(cls: object, *args, **kwargs):
+        if not (hasattr(cls, '_instance') and isinstance(cls._instance, cls)):
+            cls._instance = object.__new__(cls)
+            cls._is_init = False
+        return cls._instance
 
-        def __init__(self, *args, **kwargs):
-            if not self._init:
-                super(Wrapper, self).__init__(*args, **kwargs)
-                self._init = True
+    def __init__(self, *args, **kwargs):
+        cls = type(self)
+        if not cls._is_init:
+            cls_init(self, *args, **kwargs)
+            cls._is_init = True
 
-    Wrapper.__name__ = cls.__name__
-    return Wrapper
+    cls.__new__ = __new__
+    cls.__init__ = __init__
+    return cls
 
 
 def Logging(multiprocess: bool = False):
