@@ -7,22 +7,6 @@ from lazier import Dictionary
 
 
 def Singleton(cls):
-    # class Wrapper(cls):
-    #     _instance = None
-    #
-    #     def __new__(cls, *args, **kwargs):
-    #         if Wrapper._instance is None:
-    #             Wrapper._instance = super(Wrapper, cls).__new__(cls, *args, **kwargs)
-    #             Wrapper._instance._init = False
-    #         return Wrapper._instance
-    #
-    #     def __init__(self, *args, **kwargs):
-    #         if not self._init:
-    #             super(Wrapper, self).__init__(*args, **kwargs)
-    #             self._init = True
-    #
-    # Wrapper.__name__ = cls.__name__
-    # return Wrapper
     cls_init = cls.__init__
 
     def __new__(cls: object, *args, **kwargs):
