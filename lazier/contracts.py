@@ -72,9 +72,10 @@ class ModuleFactory:
             packages.extend(paths)  # path
         else:
             name = class_path
-            module = packages.pop() if len(packages) > 1 else cls.__MODULE__
+            module = packages.pop() if len(packages) > 1 else cls.__MODULE__ or cls.__PACKAGE__
 
-        name = module = f"{upper_first(name)}{module.capitalize()}"
+        name = f"{upper_first(name)}{module.capitalize()}"
+        packages.append(name)
 
         return getattr(importlib.import_module('.'.join(packages)), name)
 
