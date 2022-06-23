@@ -6,6 +6,7 @@ class Queueable:
 
     def __init__(self, queue: Queue = None):
         self.queue = queue or Manager().Queue()
+        super().__init__()
 
     def mediate(self, obj):
         raise NotImplementedError
