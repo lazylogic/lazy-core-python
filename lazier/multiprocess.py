@@ -5,7 +5,7 @@ class Queueable:
     queue: Queue
 
     def __init__(self, queue: Queue = None):
-        super().__init__()
+        super(Queueable, self).__init__()
         self.queue = queue or Manager().Queue()
 
     def mediate(self, obj):
