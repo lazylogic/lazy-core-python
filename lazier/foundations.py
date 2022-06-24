@@ -1,6 +1,7 @@
 """
 Extended classes of the Python classes
 """
+import pickle
 from enum import Enum
 
 
@@ -55,6 +56,12 @@ class Dictionary(dict):
     #
     # def __getstate__(self):
     #     return self.__dict__
+
+    def __getstate__(self):
+        return self.__dict__
+
+    def __setstate__(self, d):
+        self.__dict__.update(d)
 
     def __dict__(self):
         return self.dict()
@@ -164,7 +171,5 @@ class XEnum(Enum):
 
 # for test
 if __name__ == "__main__":
-    # d = Dictionary({'@a': 1, 'b': 2, 'c': {'d': {'e': ['a', 'b', 'c']}}})
-    # print(d.has('c.d.e.a'))
-    # print(d.extract('a', 'b', 'c'))
+    p = pickle.dumps(Dictionary())
     pass
