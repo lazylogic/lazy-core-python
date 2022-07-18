@@ -17,23 +17,23 @@ class Array(list):
         if i < len(self):
             self[i] = value
 
-    def distinct(self):
+    def distinct(self) -> list:
         return Array.distinct_items(self)
 
-    def list(self):
+    def list(self) -> list:
         try:
             return list(self)
         except:
             return []
 
     @staticmethod
-    def distinct_items(data: list):
+    def distinct_items(data: list) -> list:
         distinct = []
         [(distinct.append(i) if i not in distinct else None) for i in data]
         return distinct
 
     @staticmethod
-    def extract_values(data: list, key):
+    def extract_values(data: list, key) -> list:
         values = []
         for item in (data or {}):
             if isinstance(item, dict):
@@ -49,14 +49,6 @@ class Dictionary(dict):
     def __getattr__(self, name):
         return self.get(name)
 
-    # def __getattr__(self, name):
-    #     # v = super().__getattribute__(name) if name.startswith('__') else self.getitem(name)
-    #     return self.getitem(name) if isinstance(self, Dictionary) else None
-    #     # return super().__getattribute__(name) if name.startswith('__') else self.getitem(name)
-    #
-    # def __getstate__(self):
-    #     return self.__dict__
-
     def __getstate__(self):
         return self.__dict__
 
@@ -70,7 +62,6 @@ class Dictionary(dict):
         return Dictionary.get_item(self, key, default)
 
     def has(self, key):
-        # return key in self
         return Dictionary.has_key(self, key)
 
     def update(self, E=None, **F):
