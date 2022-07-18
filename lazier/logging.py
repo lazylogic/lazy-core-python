@@ -9,7 +9,7 @@ from lazier.utils import load_properties
 
 class LogConfigurer:
     @classmethod
-    def configure(cls, conf: Union[str, dict], level: Union[int, str] = logging.DEBUG, filepath: str = './logs'):
+    def configure(cls, conf: Union[str, dict], level: Union[int, str] = logging.DEBUG, filepath: str = './logs/service'):
         try:
             conf = properties(
                 load_properties(conf),
