@@ -1,3 +1,4 @@
+import logging
 import re
 from re import Pattern
 from typing import Union
@@ -67,7 +68,8 @@ class Properties:
                     return replace(value.replace(f"${{{match}}}", renewal))
                 else:
                     return value
-            except Exception:
+            except Exception as e:
+                logging.getLogger().exception(e)
                 return value
 
         try:
