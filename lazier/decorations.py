@@ -27,15 +27,6 @@ def Singleton(cls):
 
 
 def Logging(multiprocess: bool = False):
-    def getLogger(name: str, multiprocess: bool):
-        if multiprocess:
-            import multiprocessing
-            log = multiprocessing.get_logger()
-            log.propagate = True
-        else:
-            log = logging.getLogger(name)
-        return log
-
     def wrapper(cls):
         cls_init = cls.__init__
 
