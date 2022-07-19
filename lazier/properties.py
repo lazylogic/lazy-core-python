@@ -65,7 +65,7 @@ class Properties:
                 for match in re.findall(self.REPLACE_PATTERN, str(value)) or []:
                     values = Array(match.split(":"))
                     renewal = self.props.get(values.get(0), values.get(1))
-                    return replace(value.replace(f"${{{match}}}", renewal))
+                    return replace(value.replace(f"${{{match}}}", str(renewal)))
                 else:
                     return value
             except Exception as e:
