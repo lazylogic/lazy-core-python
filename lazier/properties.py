@@ -74,7 +74,7 @@ class Properties:
                 for match in re.findall(self.REPLACE_PATTERN, str(value)) or []:
                     values = Array(match.split(":"))
                     renewal = self.props.get(values.get(0), values.get(1))
-                    return convert(replace(value.replace(f"${{{match}}}", str(renewal))))
+                    return replace(value.replace(f"${{{match}}}", str(renewal)))
                 else:
                     return value
             except Exception as e:
@@ -85,7 +85,7 @@ class Properties:
             if isinstance(props, dict):
                 for key, prop in props.items():
                     if isinstance(prop, str):
-                        props[key] = replace(prop)
+                        props[key] = convert(replace(prop))
                     else:
                         self._replace(prop)
             elif isinstance(props, list):
