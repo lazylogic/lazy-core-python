@@ -4,7 +4,7 @@ from re import Pattern
 from typing import Union
 
 from lazier.foundations import Dictionary, Array
-from lazier.utils import load_properties, yml_path
+from lazier.utils import load_properties, yml_path, to_numeric
 
 
 def properties(*props: dict, include_path: str = None, replace: bool = True) -> Dictionary:
@@ -60,15 +60,6 @@ class Properties:
             return props
 
     def _replace(self, props: dict):
-        def convert(value):
-            try:
-                return int(value)
-            except:
-                try:
-                    return float(value)
-                except:
-                    return value
-
         def replace(value):
             try:
                 for match in re.findall(self.REPLACE_PATTERN, str(value)) or []:
@@ -85,7 +76,7 @@ class Properties:
             if isinstance(props, dict):
                 for key, prop in props.items():
                     if isinstance(prop, str):
-                        props[key] = convert(replace(prop))
+                        props[key] = to_numeric(replace(prop))
                     else:
                         self._replace(prop)
             elif isinstance(props, list):

@@ -11,6 +11,16 @@ def is_empty(val) -> bool:
     return val if isinstance(val, bool) else val is None or len(val) == 0
 
 
+def to_numeric(value):
+    try:
+        return int(value)
+    except:
+        try:
+            return float(value)
+        except:
+            return value
+
+
 def upper_first(string: str):
     for i in range(0, len(string)):
         if string[i].isalpha():
