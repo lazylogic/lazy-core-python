@@ -12,13 +12,16 @@ def is_empty(val) -> bool:
 
 
 def to_numeric(value):
-    try:
-        return int(value)
-    except:
+    if isinstance(value, str):
         try:
-            return float(value)
+            return int(value)
         except:
-            return value
+            try:
+                return float(value)
+            except:
+                return value
+    else:
+        return value
 
 
 def upper_first(string: str):

@@ -60,23 +60,11 @@ class Properties:
             return props
 
     def _replace(self, props: dict):
-        def replace(value):
-            try:
-                for match in re.findall(self.REPLACE_PATTERN, str(value)) or []:
-                    values = Array(match.split(":"))
-                    renewal = self.props.get(values.get(0), values.get(1))
-                    return replace(value.replace(f"${{{match}}}", str(renewal)))
-                else:
-                    return value
-            except Exception as e:
-                logging.getLogger().exception(e)
-                return value
-
         try:
             if isinstance(props, dict):
                 for key, prop in props.items():
                     if isinstance(prop, str):
-                        props[key] = to_numeric(replace(prop))
+                        props[key] = self.__replace(prop)
                     else:
                         self._replace(prop)
             elif isinstance(props, list):
@@ -84,6 +72,21 @@ class Properties:
                     self._replace(prop)
         finally:
             return props
+
+    def __replace(self, value):
+        try:
+            for match in re.findall(self.REPLACE_PATTERN, str(value)) or []:
+                values = Array(match.split(":"))
+                renewal = self.props.get(values.get(0), values.get(1))
+                if isinstance(renewal, (dict, list)):
+                    return self._replace(renewal)
+                else:
+                    return to_numeric(self.__replace(value.replace(f"${{{match}}}", str(renewal))))
+            else:
+                return value
+        except Exception as e:
+            logging.getLogger().exception(e)
+            return value
 
 
 # for test
