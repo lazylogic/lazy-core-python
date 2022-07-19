@@ -157,7 +157,12 @@ class Dictionary(dict):
 
 
 class XEnum(Enum):
-    pass
+
+    def __str__(self):
+        return str(self._value_).upper()
+
+    def equal(self, value):
+        return str(self) == str(value).upper()
 
 
 # for test
