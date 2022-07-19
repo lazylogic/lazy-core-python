@@ -43,7 +43,6 @@ def Logging(multiprocess: bool = False):
             if multiprocess:
                 import multiprocessing
                 self.log = multiprocessing.get_logger()
-                self.log.name = self.__class__.__name__
                 self.log.propagate = True
             else:
                 self.log = logging.getLogger(self.__class__.__name__)
