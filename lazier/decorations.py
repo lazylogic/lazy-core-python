@@ -40,11 +40,9 @@ def Logging(multiprocess: bool = False):
         cls_init = cls.__init__
 
         def __init__(self, *args, **kwargs):
-            # self.log = getLogger(multiprocess)
-            # self.log = logging.getLogger(self.__class__.__name__)
             if multiprocess:
                 import multiprocessing
-                self.log = multiprocessing.get_logger()
+                self.log = multiprocessing.get_logger(self.__class__.__name__)
                 self.log.propagate = True
             else:
                 self.log = logging.getLogger(self.__class__.__name__)
