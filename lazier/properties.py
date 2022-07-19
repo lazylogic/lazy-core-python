@@ -60,12 +60,21 @@ class Properties:
             return props
 
     def _replace(self, props: dict):
+        def convert(value):
+            try:
+                return int(value)
+            except:
+                try:
+                    return float(value)
+                except:
+                    return value
+
         def replace(value):
             try:
                 for match in re.findall(self.REPLACE_PATTERN, str(value)) or []:
                     values = Array(match.split(":"))
                     renewal = self.props.get(values.get(0), values.get(1))
-                    return replace(re.sub(rf"\${{{match}}}", renewal, str(value)))
+                    return convert(replace(value.replace(f"${{{match}}}", renewal)))
                 else:
                     return value
             except Exception as e:
