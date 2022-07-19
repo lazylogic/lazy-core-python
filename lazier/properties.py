@@ -3,7 +3,7 @@ from re import Pattern
 from typing import Union
 
 from lazier.foundations import Dictionary, Array
-from lazier.utils import load_properties, yml_path, pp
+from lazier.utils import load_properties, yml_path
 
 
 def properties(*props: dict, include_path: str = None, replace: bool = True) -> Dictionary:
@@ -11,7 +11,7 @@ def properties(*props: dict, include_path: str = None, replace: bool = True) -> 
 
 
 class Properties:
-    REPLACE_PATTERN: Pattern = re.compile(r'\${(.+)}')
+    REPLACE_PATTERN: Pattern = re.compile(r'\${([\w\.\s:]+)}')
 
     p: dict
     include_path: str
@@ -61,10 +61,10 @@ class Properties:
     def _replace(self, props: dict):
         def replace(value):
             try:
-                if match := re.search(self.REPLACE_PATTERN, str(value)):
-                    values = Array(match[1].split(":"))
+                for match in re.findall(self.REPLACE_PATTERN, str(value)) or []:
+                    values = Array(match.split(":"))
                     renewal = self.props.get(values.get(0), values.get(1))
-                    return replace(renewal if match[0] == value else self.REPLACE_PATTERN.sub(str(renewal), value))
+                    return replace(value.replace(f"${{{match}}}", renewal))
                 else:
                     return value
             except Exception:
@@ -86,5 +86,6 @@ class Properties:
 
 # for test
 if __name__ == "__main__":
-    p = properties({'a': 'A'}, {'b': 'B'}, '/Users/razy/0Z.Razy/lazy-core-python/test/p.yml')
-    pp(p)
+    ptn = re.compile(r'\${(.+)}')
+    m = re.search(ptn, '${a}${b}')
+    print(m)
