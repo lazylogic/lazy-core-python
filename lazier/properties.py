@@ -11,7 +11,7 @@ def properties(*props: dict, include_path: str = None, replace: bool = True) -> 
 
 
 class Properties:
-    REPLACE_PATTERN: Pattern = re.compile(r'\${([\w\.\s:]+)}')
+    REPLACE_PATTERN: Pattern = re.compile(r'\${([^\$]+)}')
 
     p: dict
     include_path: str
