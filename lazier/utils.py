@@ -142,9 +142,9 @@ def delay(min_: int = 0, max_: int = 0):
     min_ = abs(min_ or 0)
     max_ = max(min_, abs(max_ or 0))
     if min_ < max_:
-        time.sleep(random.randrange(min_, max_))
+        time.sleep(random.randrange(min_, max_ + 1))
     elif 0 < max_:
-        time.sleep(random.randrange(max_ - 1, max_))
+        time.sleep(random.randrange(max_, max_ + 1))
 
 
 # TODO: *args
